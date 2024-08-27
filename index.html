@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <form enctype="multipart/form-data"> -->
+        <input type="file" name="avatar" id="file" />
+        <input type="file" name="avatar" id="file2" />
+        <button type="submit" value="upload" id="uploadbtn">Upload</button>
+    <!-- </form> -->
+    <script>
+        document.querySelector("#uploadbtn").addEventListener("click",async (e)=>{
+            const formData = new FormData()
+            const singleFile = document.getElementById("file")
+            const singleFile2 = document.getElementById("file2")
+            formData.append("avatar", singleFile.files[0])
+            formData.append("avatar", singleFile2.files[0])
+            await fetch("http://localhost:3000/user/upload/galary",{
+                method:"post",
+                body: formData,
+                headers:{
+                    contentType:"multipart/form-data"
+                }
+            })
+        })
+    </script>
+</body>
+</html>
