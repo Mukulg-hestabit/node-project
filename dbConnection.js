@@ -8,10 +8,10 @@ const connection = {
   database: process.env.DB_NAME,
 };
 
-// Create a MySQL connection
+// create connection
 const db_connection = mysql.createConnection(connection);
 
-// Connect to MySQL
+// connect to db
 db_connection.connect((err) => {
   if (err) {
     console.error("Error connecting to MySQL:", err);
@@ -28,7 +28,7 @@ const runQuery = (query, values) => {
       resolve(result);
     });
   });
-  return runQuery;
+  return queryResponse;
 };
 
-module.exports = query;
+module.exports = runQuery;
