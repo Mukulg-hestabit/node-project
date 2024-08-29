@@ -54,13 +54,19 @@ const insertUserToTable = async (values) => {
 };
 
 const getUser = async (name, email, role) => {
-  console.log(name,email,role)
+  console.log("Getting user with : ",name, email, role);
   const query = runQuery(
     "SELECT * FROM user WHERE full_name=? AND email=? AND role=?",
     [name, email, role]
   );
-  console.log(await query)
+  console.log(await query);
   return query;
+};
+
+const deleteUser = async (id) => {
+  const queryData = `DELETE FROM user WHERE id=?`;
+  const queryValues = [id];
+  return await runQuery(queryData, queryValues);
 };
 
 const processUserRequest = {
@@ -86,6 +92,16 @@ const processUserRequest = {
   },
 };
 
-const updateUser = (id, updates) => {};
+const updateUser = async (email, id) => {
+  const queryValues = [email, id];
+  const queryData = `UPDATE SET user email=? WHERE id=?`;
+  return await runQuery(queryData, queryValues);
+};
 
-module.exports = { insertUserToTable, getUser, processUserRequest };
+module.exports = {
+  insertUserToTable,
+  getUser,
+  processUserRequest,
+  deleteUser,
+  updateUser,
+};
