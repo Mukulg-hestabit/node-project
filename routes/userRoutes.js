@@ -1,11 +1,12 @@
 const express = require("express");
+const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const {
   insertUserToTable,
   deleteUser,
   getUser,
   updateUser,
-} = require("../functions/helperFunctions");
+} = require("../controller/userController");
 
 // Declaring where and how files will be stored.
 const storage = multer.diskStorage({
@@ -48,20 +49,20 @@ app.post("/upload/avatar", uploads.single("avatar"), (req, res) => {
   res.json({ message: "File Uploaded", path: req.file.path });
 });
 
-// show all users
-app.get("/getall", (req, res) => {
-  res.status(200).json({});
-});
 
 // Read User Information and Give Response if user is valid
-app.get("/login", async (req, res) => {
+app.post("/login", async (req, res) => {
   try {
     const { full_name, email, role } = req.body;
     const userInfo = await getUser(full_name, email, role);
     if (userInfo.length == 0) {
       res.status(404).json({ msg: "not found", userInfo: {} });
     } else {
-      res.cookie("user", JSON.stringify(userInfo), { httpOnly: true });
+      const signedToken = jwt.sign(
+        JSON.stringify(userInfo),
+        process.env.JWT_KEY
+      );
+      res.cookie("token", signedToken);
       res.status(200).json({ msg: "sucess", userInfo });
     }
   } catch (err) {

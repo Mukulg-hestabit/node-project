@@ -7,11 +7,30 @@
     <title>Document</title>
 </head>
 <body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const details={
+                full_name: "Leon Dickinson",
+    email: "Clara69@yahoo.com",
+    role:"teacher"
+            }
+        const login=async ()=>{const login=await fetch("http://localhost:3000/user/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(details)
+        });
+        console.log(await login.json())}
+
+      </script>
     <!-- <form enctype="multipart/form-data"> -->
         <input type="file" name="avatar" id="file" />
         <input type="file" name="avatar" id="file2" />
         <button type="submit" value="upload" id="uploadbtn">Upload</button>
     <!-- </form> -->
+     <button value="" id="verifyUser">Verify User</button>
     <script>
         document.querySelector("#uploadbtn").addEventListener("click",async (e)=>{
             const formData = new FormData()
@@ -19,13 +38,18 @@
             const singleFile2 = document.getElementById("file2")
             formData.append("avatar", singleFile.files[0])
             formData.append("avatar", singleFile2.files[0])
-            await fetch("http://localhost:3000/user/upload/galary",{
+            await fetch("http://localhost:3000/user/upload/avatar",{
                 method:"post",
                 body: formData,
                 headers:{
                     contentType:"multipart/form-data"
                 }
             })
+        })
+
+        document.querySelector("#verifyUser").addEventListener("click",()=>{
+            login()
+            socket.emit("signup","1")
         })
     </script>
 </body>

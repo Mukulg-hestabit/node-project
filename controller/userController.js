@@ -1,3 +1,4 @@
+const { Socket } = require("socket.io");
 const runQuery = require("../dbConnection.js");
 
 const sendNotification = async (id) => {
@@ -59,7 +60,6 @@ const getUser = async (name, email, role) => {
     "SELECT * FROM user WHERE full_name=? AND email=? AND role=?",
     [name, email, role]
   );
-  console.log(await query);
   return query;
 };
 
@@ -104,4 +104,5 @@ module.exports = {
   processUserRequest,
   deleteUser,
   updateUser,
+  sendNotification
 };
