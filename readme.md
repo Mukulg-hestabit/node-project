@@ -27,7 +27,15 @@
     ~"/user/signup" this end point is a POST request which accepts json object in body and appends user inside user table
         *Sample Request : 
             const bodyData={
-
+                "full_name":"{{$randomFullName}}",
+                "email" :"{{$randomEmail}}",
+                "role":"teacher",
+                "address":"{{$randomStreetAddress}}" ,
+                "avatar":"{{$randomImageUrl}}" ,
+                "current_school":"{{$randomLastName}}",
+                "previous_school":"{{$randomStreetName}}",
+                "experience":"2",
+                "expertise":"Software development"
             }
             fetch("/user/signup",{
                 method:"POST",
@@ -42,7 +50,9 @@
     ~"user/login" this endpoint is also POST request it accepts user email and name and verify it from table then respond if user exist 
         *Sample Request : 
             const bodyData={
-
+                "full_name": "Leon Dickinson",
+                "email": "Clara69@yahoo.com",
+                "role":"teacher"
             }
             fetch("/user/login",{
                 method:"POST",
@@ -57,7 +67,8 @@
     ~"user/update/email" this require user email and user id as request body and updates the email id of user with provided id
         *Sample Request :
             const bodyData={
-
+                "email": "Clara69@yahoo.com",
+                "id": "1"
             }
             fetch("/user/update/email",{
                 method:"POST",
