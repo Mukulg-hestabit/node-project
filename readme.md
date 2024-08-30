@@ -19,8 +19,11 @@
     ~"user-approved" this event triggers when user is approved by admin,
 
 -CRUD api's endpoint
+
     ~"/uploads/:id" this end point will serve files located in uploades folder user can access files uploaded on server.
 
+    ####Create User
+    
     ~"/user/signup" this end point is a POST request which accepts json object in body and appends user inside user table
         *Sample Request : 
             const bodyData={
@@ -33,6 +36,8 @@
                     "Content-Type":"application/json"
                 }
             })
+    
+    ####Read Userinfo
     
     ~"user/login" this endpoint is also POST request it accepts user email and name and verify it from table then respond if user exist 
         *Sample Request : 
@@ -47,9 +52,38 @@
                 }
             })
     
+    ####Update User
+    
+    ~"user/update/email" this require user email and user id as request body and updates the email id of user with provided id
+        *Sample Request :
+            const bodyData={
+
+            }
+            fetch("/user/update/email",{
+                method:"POST",
+                body:JSON.stringify(bodyData),
+                headers:{
+                    "Content-Type":"application/json"
+                }
+            })
+    
+    ####Delete user
+    
     ~"user/delete/:id" this require user id as query parameter and will only work if admin is logged in and perfomed this action
         *Sample Request :
             fetch("/user/delete/1",{
-                method:"GET"
+                method:"DELETE"
+            })
+
+    ####Upload Using Multer
+
+    ~"user/upload/avatar" this require form data with file buffer as req body and uploads it on server and respond with the file name and path on server.
+        *Sample Request :
+            fetch("/user/upload/avatar",{
+                method:"POST",
+                body:formData,
+                headers:{
+                    "Content-Type":"multipart/form-data"
+                }
             })
     
