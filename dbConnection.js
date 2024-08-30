@@ -24,7 +24,7 @@ db_connection.connect((err) => {
 const runQuery = (query, values) => {
   const queryResponse = new Promise((resolve, reject) => {
     db_connection.query(query, values, (error, result) => {
-      if (error) reject(error);
+      if (error) resolve(error);
       resolve(result);
     });
   });

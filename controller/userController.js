@@ -1,4 +1,3 @@
-const { Socket } = require("socket.io");
 const runQuery = require("../dbConnection.js");
 
 const sendNotification = async (id) => {
@@ -22,7 +21,7 @@ const insertUserToTable = async (values) => {
     assigned_teacher,
   } = values;
 
-  if (role == "admin") return;
+  if (role == "admin") return "can't create Admin";
 
   const queryValues = [
     full_name,
@@ -45,13 +44,13 @@ const insertUserToTable = async (values) => {
 
   const query = await runQuery(queryData, queryValues);
 
-  if (query) {
+  if (!query.sqlMessage) {
     const newUser = await runQuery("SELECT * FROM user WHERE email=?", [email]);
     sendNotification(newUser[0].id);
     return newUser[0];
   }
 
-  return query;
+  return query.sqlMessage;
 };
 
 const getUser = async (name, email, role) => {

@@ -27,7 +27,7 @@ app.post("/signup", async (req, res) => {
   try {
     const data = insertUserToTable(req.body);
     const createdUser = await data;
-    res.status(200).json({ message: "sucess", user: createdUser });
+    res.status(200).json({ message: "sucess", response: createdUser });
   } catch (err) {
     res.status(500).json({ message: "Internal server error" });
   }

@@ -1,8 +1,14 @@
+-- Dropping existing databse if present
+DROP DATABASE IF EXISTS SchoolGroup;
+
+-- Creating new database
+CREATE DATABASE SchoolGroup;
+use SchoolGroup;
 
 -- Dropping existing tables if they are present in database
+DROP TABLE IF EXISTS notifications;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS admin;
-DROP TABLE IF EXISTS notifications;
 
 -- New table containing user as teacher and student
 CREATE TABLE user(
