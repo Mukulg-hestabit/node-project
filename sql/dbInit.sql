@@ -40,6 +40,3 @@ CREATE TABLE notifications(
     user_id int,
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
-SELECT * FROM user
-
-SELECT * FROM notifications

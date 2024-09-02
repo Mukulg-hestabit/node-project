@@ -6,7 +6,7 @@ VALUES (
         "Mukul Gupta",
         "Mukul1234"
     )
-    -- Created an user
+    -- Created an teacher user
 INSERT INTO
     user (
         full_name,
@@ -32,7 +32,7 @@ VALUES (
         "SOftware",
         false
     )
-    -- Created an user
+    -- Created an student user
 INSERT INTO
     user (
         full_name,
@@ -58,7 +58,24 @@ VALUES (
         "-",
         false
     )
--- Create notification for admin
+    -- Create notification for admin
 INSERT INTO
     notifications (action, user_id)
-VALUES ("pending", 1)
+VALUES (
+        "pending",
+        (
+            SELECT id
+            FROM admin
+            WHERE
+                email = "mukulg.hestabit@gmail.com"
+        )
+    ),
+    (
+        "pending",
+        (
+            SELECT id
+            FROM user
+            WHERE
+                email = "kshitij@hestabit.in"
+        )
+    );
